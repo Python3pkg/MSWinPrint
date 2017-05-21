@@ -144,7 +144,7 @@ class document:
 
         self.dc.SetMapMode(win32con.MM_TWIPS) # hundredths of inches
         self.dc.StartDoc(desc)
-        self.pen = win32ui.CreatePen(0, int(scale_factor), 0L)
+        self.pen = win32ui.CreatePen(0, int(scale_factor), 0)
         self.dc.SelectObject(self.pen)
         self.page = 1
 
@@ -201,7 +201,7 @@ class document:
     def image(self, position, image, size):
         "print PIL image at position with given size"
         if ImageWin is None:
-            raise NotImplementedError, "PIL required for image method"
+            raise NotImplementedError("PIL required for image method")
         if self.page == 0:
             self.begin_document()
         dib = ImageWin.Dib(image)
@@ -234,7 +234,7 @@ def listprinters():
     dft = win32print.GetDefaultPrinter()
     if prdict is None:
         build_dict()
-    keys = prdict.keys()
+    keys = list(prdict.keys())
     keys.sort()
     rc = [ dft ]
     for k in keys:
